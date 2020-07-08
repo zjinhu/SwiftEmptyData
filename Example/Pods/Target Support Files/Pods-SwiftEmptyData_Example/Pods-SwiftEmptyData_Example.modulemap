@@ -1,0 +1,6 @@
+framework module Pods_SwiftEmptyData_Example {
+  umbrella header "Pods-SwiftEmptyData_Example-umbrella.h"
+
+  export *
+  module * { export * }
+}
