@@ -22,7 +22,7 @@ PODS:
     - SnapKit
   - SwiftBrick/ViewFactory (0.9.9):
     - SnapKit
-  - SwiftEmptyData (0.1.0):
+  - SwiftEmptyData (0.0.1):
     - SnapKit
 
 DEPENDENCIES:
@@ -41,7 +41,7 @@ EXTERNAL SOURCES:
 SPEC CHECKSUMS:
   SnapKit: 97b92857e3df3a0c71833cce143274bf6ef8e5eb
   SwiftBrick: 2afe9b27fc410022c1fdd85bbdbd2491d00a5fb7
-  SwiftEmptyData: b8f5739d5df887b6b904ac897294e0b4a1b53b9f
+  SwiftEmptyData: ea15f03d72c667db42dd5d623401c1ce82f56d50
 
 PODFILE CHECKSUM: 4ad27adb836c061f1f9caf06bcd81ae605da0f68
 
