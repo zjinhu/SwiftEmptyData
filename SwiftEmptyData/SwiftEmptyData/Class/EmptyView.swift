@@ -10,63 +10,44 @@ import UIKit
 import SnapKit
 
 public class EmptyConfig {
-    
     /// 内容视图的偏移量
     public var offsetY : CGFloat = 0
     ///整个遮罩层的背景色
     public var emptyViewColor : UIColor = .clear
-    
     /// 内容区域是否可点击
     public var emptyViewCanTouch = false
-    
     /// 图片
     public var image : UIImage?
-    
     /// 自定义图片size
     public var imageSize : CGSize?
-    
     /// title到图片间距
     public var titleSpace : CGFloat = 5
-    
     /// 标题
     public var title : String?
-    
     /// 标题字体
     public var titleFont : UIFont = .systemFont(ofSize: 30)
-    
     /// 标题颜色
     public var titleColor : UIColor = .black
-    
     /// 副标题到标题间距
     public var detailSpace : CGFloat = 5
-    
     /// 副标题
     public var detail : String?
-    
     /// 副标题字体
     public var detailFont : UIFont = .systemFont(ofSize: 14)
-    
     /// 副标题颜色
     public var detailColor : UIColor = .lightGray
-    
     /// 按钮到副标题间距
     public var buttonSpace : CGFloat = 5
-    
     /// 按钮标题
     public var buttonTitle : String?
-    
     /// 按钮字体颜色
     public var buttonFont : UIFont = .systemFont(ofSize: 15)
-    
     /// 按钮标题颜色
     public var buttonTitleColor : UIColor = .lightGray
-    
     /// 按钮宽高
     public var buttonSize : CGSize?
-    
     /// 按钮圆角
     public var buttonRadius : CGFloat = 5
-    
     /// 按钮背景色
     public var buttonColor : UIColor = .clear
 }
@@ -209,10 +190,11 @@ open class EmptyView: UIView {
         config = model
         
         backgroundColor = model.emptyViewColor
+        
         if let bool = config?.emptyViewCanTouch, bool == true {
             contentView.addGestureRecognizer(tapGesture)
         }
-            
+
         imageView.image = model.image
         
         titleLabel.text = model.title
