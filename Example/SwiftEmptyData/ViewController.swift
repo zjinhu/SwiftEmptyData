@@ -30,8 +30,8 @@ class ViewController: JHViewController ,UITableViewDelegate,UITableViewDataSourc
 //        self.tabBarController?.tabBar.badgeImage = UIImage(named: "share_haoyou_btn")
         self.tabBarController?.tabBar.badgeValue = 200
         self.tabBarController?.tabBar.showBadgeOnItemIndex(index: 0)
-        
-        let view = EmptyView.empty({ (config) in
+ 
+        tableView.emptyView = EmptyView.empty({ (config) in
             config.image = UIImage.init(named: "icXiaodong")
             config.title = "sdfasd"
             config.detail = "asdasd"
@@ -40,7 +40,7 @@ class ViewController: JHViewController ,UITableViewDelegate,UITableViewDataSourc
         }) {
             print("点击")
         }
-        tableView.empty.addEmptyView(view) 
+        
     }
  
     // MARK:-示例快速创建UIView 使用部分默认参数 --初始化使用SnapKit
