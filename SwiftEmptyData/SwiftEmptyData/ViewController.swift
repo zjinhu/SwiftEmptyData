@@ -31,11 +31,14 @@ class ViewController: JHViewController ,UITableViewDelegate,UITableViewDataSourc
         self.tabBarController?.tabBar.showBadgeOnItemIndex(index: 0)
  
         tableView.emptyView = EmptyView.empty({ (config) in
-            config.image = UIImage.init(named: "icXiaodong")
+            config.emptyViewCanTouch = true
+            config.offsetY = -100
+            config.image = UIImage.init(named: "placeholder_tumblr")
             config.title = "sdfasd"
             config.detail = "asdasd"
             config.buttonTitle = "asdasdasd"
             config.buttonColor = .orange
+            config.buttonSize = .init(width: 200, height: 50)
         }) {
             print("点击")
         }

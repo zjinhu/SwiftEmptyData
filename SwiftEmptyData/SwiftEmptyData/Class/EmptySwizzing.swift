@@ -10,7 +10,7 @@ import UIKit
 
 private var kEmptyView = "emptyDataView"
 public extension UIScrollView {
-    // 空白页视图
+    /// 空白页视图
     var emptyView: EmptyView? {
         get {
             return objc_getAssociatedObject(self, &kEmptyView) as? EmptyView
