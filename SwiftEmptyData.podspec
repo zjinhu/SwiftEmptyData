@@ -33,4 +33,7 @@ TODO: Add long description of the pod here.
   s.source_files = 'SwiftEmptyData/Classes/**/*'
  
   s.dependency 'SnapKit'
+
+  s.swift_versions     = ['5.0','5.1','5.2']
+  s.requires_arc = true
 end
