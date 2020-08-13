@@ -31,25 +31,22 @@ public extension UIScrollView {
                         vi.removeFromSuperview()
                     }
                 }
-                
                 addSubview(newValue!)
-                
-                if self.isKind(of: UITableView.self) ||
-                    self.isKind(of: UICollectionView.self){
-                    setModeEmptyView()
-                }else{
-                    newValue?.isHidden = true
-                }
+
+                newValue?.isHidden = true
             }
         }
     }
 
     fileprivate func setModeEmptyView() {
         
-        guard let _ = emptyView else {
+        guard let empty = emptyView else {
             return
         }
         if itemsCount == 0 {
+            if empty.firstReloadHidden {
+                return
+            }
             show()
         }else{
             hide()
@@ -80,22 +77,7 @@ public extension UIScrollView {
         }
         em.isHidden = true
     }
-    
-    /// 一般用于开始请求网络时调用，startEmptyLoading调用时会暂时隐藏emptyView 当调用endEmptyLoading方法时，endEmptyLoading方法内部会根据当前的tableView/collectionView的 DataSource来自动判断是否显示emptyView
-    func startEmptyLoading(){
-        guard let em = emptyView else {
-            return
-        }
-        em.isHidden = true
-    }
-    
-    /// 在想要刷新emptyView状态时调用 注意:endEmptyLoading 的调用时机，有刷新UI的地方一定要等到刷新UI的方法之后调用，
-    func endEmptyLoading(){
-        guard let em = emptyView else {
-            return
-        }
-        em.isHidden = itemsCount > 0 ? true : false
-    }
+
     
     fileprivate var itemsCount: Int {
         var items = 0
@@ -232,6 +214,9 @@ fileprivate extension UITableView {
     @objc func empty_reloadData() {
         self.empty_reloadData()
         setModeEmptyView()
+        if let empty = emptyView {
+            empty.firstReloadHidden = false
+        }
     }
     
     @objc func empty_insertSections(_ sections: IndexSet, with animation: UITableView.RowAnimation) {
@@ -272,6 +257,9 @@ fileprivate extension UICollectionView {
     @objc func empty_reloadData() {
         self.empty_reloadData()
         setModeEmptyView()
+        if let empty = emptyView {
+            empty.firstReloadHidden = false
+        }
     }
     
     @objc func empty_insertSections(_ sections: IndexSet) {

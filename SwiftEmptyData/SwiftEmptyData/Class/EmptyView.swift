@@ -10,6 +10,8 @@ import UIKit
 import SnapKit
 
 public class EmptyConfig {
+    //用于请求网络前Reload时暂时隐藏emptyView ,网络回来后会根据当前的tableView/collectionView的 DataSource来自动判断是否显示emptyView,不请求网络默认为false
+    public var firstReloadHidden = false
     /// 内容视图的偏移量
     public var offsetY : CGFloat = 0
     ///整个遮罩层的背景色
@@ -122,8 +124,11 @@ open class EmptyView: UIView {
     
     public typealias buttonClosure = () -> Void
     
+    public var firstReloadHidden = false
+    
     fileprivate var bClosure: buttonClosure?
     fileprivate var config: EmptyConfig?
+    
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -226,6 +231,7 @@ open class EmptyView: UIView {
         config(model)
         
         let em = EmptyView()
+        em.firstReloadHidden = model.firstReloadHidden
         em.bClosure = closure
         em.configEmptyView(model)
         return em
