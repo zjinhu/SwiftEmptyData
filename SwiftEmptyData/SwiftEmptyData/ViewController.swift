@@ -10,9 +10,8 @@ import UIKit
 import SwiftBrick
 class ViewController: JHViewController ,UITableViewDelegate,UITableViewDataSource{
     
-//    var mainArray = [String]()
-    var mainArray = ["示例UIView1","示例UIView2","示例UIView3-可点击","示例UIImageView-可点击","示例UIImageView","示例Button"]
-    
+    var mainArray = [String]()
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -37,10 +36,20 @@ class ViewController: JHViewController ,UITableViewDelegate,UITableViewDataSourc
             print("点击")
         }
         
+        
+        DispatchQueue.main.asyncAfter(deadline: .now()+2) {
+            self.mainArray = ["","","","","",""]
+            tableView.reloadData()
+        }
+        
+        DispatchQueue.main.asyncAfter(deadline: .now()+5) {
+            self.mainArray.removeAll()
+            tableView.reloadData()
+        }
     }
 
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 100
+        return 40
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
