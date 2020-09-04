@@ -32,8 +32,9 @@ class ViewController: JHViewController ,UITableViewDelegate,UITableViewDataSourc
             config.buttonTitle = "asdasdasd"
             config.buttonColor = .orange
             config.buttonSize = .init(width: 200, height: 50)
-        }) {
-            print("点击")
+            config.eventTag = 2
+        }) { tag in
+            print("点击\(tag)")
         }
         
         
@@ -59,6 +60,7 @@ class ViewController: JHViewController ,UITableViewDelegate,UITableViewDataSourc
                 config.buttonTitle = "XXXXXXXXX"
                 config.buttonColor = .red
                 config.buttonSize = .init(width: 100, height: 50)
+                config.eventTag = 6
             })
         }
     }

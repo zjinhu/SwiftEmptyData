@@ -52,6 +52,8 @@ public class EmptyConfig {
     public var buttonRadius : CGFloat = 5
     /// 按钮背景色
     public var buttonColor : UIColor = .clear
+    /// 按钮处理事件tag
+    public var eventTag : Int = 0
 }
 
 
@@ -123,12 +125,12 @@ open class EmptyView: UIView {
 
     public typealias ConfigEmpty = ((_ config : EmptyConfig) -> Void)
     
-    public typealias buttonClosure = () -> Void
+    public typealias buttonClosure = (_ tag : Int) -> Void
     
     public var firstReloadHidden = false
     
     fileprivate var bClosure: buttonClosure?
-    fileprivate var config: EmptyConfig?
+    fileprivate var config : EmptyConfig?
     
     
     override init(frame: CGRect) {
@@ -166,12 +168,11 @@ open class EmptyView: UIView {
             stackView.addArrangedSubview(imageView)
             
             if let size = model.imageSize {
-                imageView.snp.makeConstraints { (m) in
+                imageView.snp.updateConstraints { (m) in
                     m.size.equalTo(size)
                 }
             }
         }
-        
         
         if let title = model.title {
             titleLabel.text = title
@@ -179,7 +180,7 @@ open class EmptyView: UIView {
             titleLabel.textColor = model.titleColor
             stackView.addArrangedSubview(titleLabel)
             if let size = model.titleSize {
-                titleLabel.snp.makeConstraints { (m) in
+                titleLabel.snp.updateConstraints { (m) in
                     m.size.equalTo(size)
                 }
             }
@@ -191,7 +192,7 @@ open class EmptyView: UIView {
             detailLabel.textColor = model.detailColor
             stackView.addArrangedSubview(detailLabel)
             if let size = model.detailSize {
-                detailLabel.snp.makeConstraints { (m) in
+                detailLabel.snp.updateConstraints { (m) in
                     m.size.equalTo(size)
                 }
             }
@@ -206,7 +207,7 @@ open class EmptyView: UIView {
             button.clipsToBounds = true
             stackView.addArrangedSubview(button)
             if let size = model.buttonSize {
-                button.snp.makeConstraints { (m) in
+                button.snp.updateConstraints { (m) in
                     m.size.equalTo(size)
                 }
             }
@@ -250,7 +251,7 @@ open class EmptyView: UIView {
     
      @objc fileprivate func touchUpInSideBtnAction() {
         if let co = bClosure {
-            co()
+            co(config?.eventTag ?? 0)
         }
     }
     
