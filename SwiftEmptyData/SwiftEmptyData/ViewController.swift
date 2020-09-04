@@ -45,6 +45,9 @@ class ViewController: JHViewController ,UITableViewDelegate,UITableViewDataSourc
         DispatchQueue.main.asyncAfter(deadline: .now()+5) {
             self.mainArray.removeAll()
             tableView.reloadData()
+            tableView.emptyView?.reloadEmpty({ (config) in
+                config.title = "123123123"
+            })
         }
     }
 

@@ -14,6 +14,8 @@ public class EmptyConfig {
     public var firstReloadHidden = false
     /// 内容视图的偏移量
     public var offsetY : CGFloat = 0
+    /// 间距
+    public var space : CGFloat = 5
     ///整个遮罩层的背景色
     public var emptyViewColor : UIColor = .clear
     /// 内容区域是否可点击
@@ -22,24 +24,22 @@ public class EmptyConfig {
     public var image : UIImage?
     /// 自定义图片size
     public var imageSize : CGSize?
-    /// title到图片间距
-    public var titleSpace : CGFloat = 5
     /// 标题
     public var title : String?
     /// 标题字体
     public var titleFont : UIFont = .systemFont(ofSize: 30)
     /// 标题颜色
     public var titleColor : UIColor = .black
-    /// 副标题到标题间距
-    public var detailSpace : CGFloat = 5
+    /// 自定义size
+    public var titleSize : CGSize?
     /// 副标题
     public var detail : String?
     /// 副标题字体
     public var detailFont : UIFont = .systemFont(ofSize: 14)
     /// 副标题颜色
     public var detailColor : UIColor = .lightGray
-    /// 按钮到副标题间距
-    public var buttonSpace : CGFloat = 5
+    /// 自定义size
+    public var detailSize : CGSize?
     /// 按钮标题
     public var buttonTitle : String?
     /// 按钮字体颜色
@@ -69,12 +69,12 @@ func status_bar_height() ->CGFloat {
 /// 空占位图
 open class EmptyView: UIView {
     
-    /// 中间的容器
-    lazy var contentView: UIView = {
-        let contentView = UIView()
-        contentView.backgroundColor = .clear
-        contentView.isUserInteractionEnabled = true
-        return contentView
+    lazy var stackView: UIStackView = {
+        let view = UIStackView()
+        view.axis = .vertical
+        view.distribution = .fill
+        view.alignment = .center
+        return view
     }()
     
     /// 图片
@@ -133,58 +133,11 @@ open class EmptyView: UIView {
     override init(frame: CGRect) {
         super.init(frame: frame)
         autoresizingMask = [.flexibleWidth , .flexibleHeight]
-        addSubview(contentView)
-
-        contentView.addSubview(imageView)
-        contentView.addSubview(titleLabel)
-        contentView.addSubview(detailLabel)
-        contentView.addSubview(button)
-    }
-    
-    open override func layoutSubviews() {
-        super.layoutSubviews()
-        
-        imageView.snp.makeConstraints { (make) in
-            make.top.equalToSuperview()
-            make.centerX.equalToSuperview()
-            if let size = config?.imageSize{
-                make.size.equalTo(size)
-            }
+        addSubview(stackView)
+        stackView.snp.makeConstraints { (m) in
+            m.centerX.equalToSuperview()
+            m.centerY.equalToSuperview()
         }
-        
-        titleLabel.snp.makeConstraints { (make) in
-            make.top.equalTo(imageView.snp.bottom).offset(config?.titleSpace ?? 0)
-            make.centerX.equalToSuperview()
-        }
-        
-        detailLabel.snp.makeConstraints { (make) in
-            make.top.equalTo(titleLabel.snp.bottom).offset(config?.detailSpace ?? 0)
-            make.centerX.equalToSuperview()
-        }
-        
-        button.snp.makeConstraints { (make) in
-            make.top.equalTo(detailLabel.snp.bottom).offset(config?.buttonSpace ?? 0)
-            make.centerX.equalToSuperview()
-            if let size = config?.buttonSize{
-                make.size.equalTo(size)
-            }
-        }
-        
-        contentView.snp.makeConstraints { (make) in
-            if let buttonTitle = config?.buttonTitle, buttonTitle.count > 0 {
-                make.bottom.equalTo(button)
-            }else if let detail = config?.detail, detail.count > 0 {
-                make.bottom.equalTo(detailLabel)
-            }else if let title = config?.title, title.count > 0 {
-                make.bottom.equalTo(titleLabel)
-            }else if let _ = config?.image{
-                make.bottom.equalTo(imageView)
-            }
-            
-            make.centerY.equalToSuperview().offset(-status_bar_height() + (config?.offsetY ?? 0))
-            make.left.right.equalToSuperview()
-        }
- 
     }
     
     required public init?(coder: NSCoder) {
@@ -197,44 +150,100 @@ open class EmptyView: UIView {
         backgroundColor = model.emptyViewColor
         
         if let bool = config?.emptyViewCanTouch, bool == true {
-            contentView.addGestureRecognizer(tapGesture)
+            addGestureRecognizer(tapGesture)
         }
-
-        imageView.image = model.image
         
-        titleLabel.text = model.title
-        titleLabel.font = model.titleFont
-        titleLabel.textColor = model.titleColor
+        stackView.arrangedSubviews.forEach { (view) in
+            stackView.removeArrangedSubview(view)
+        }
         
-        detailLabel.text = model.detail
-        detailLabel.font = model.detailFont
-        detailLabel.textColor = model.detailColor
+        stackView.spacing = model.space
         
-        button.titleLabel?.font = model.buttonFont
-        button.setTitle(model.buttonTitle, for: .normal)
-        button.setTitleColor(model.buttonTitleColor, for: .normal)
-        button.backgroundColor = model.buttonColor
-        button.layer.cornerRadius = model.buttonRadius
-        button.clipsToBounds = true
+        if let image = model.image {
+            imageView.image = image
+            stackView.addArrangedSubview(imageView)
+            
+            if let size = model.imageSize {
+                imageView.snp.makeConstraints { (m) in
+                    m.size.equalTo(size)
+                }
+            }
+        }
         
-        layoutSubviews()
+        
+        if let title = model.title {
+            titleLabel.text = title
+            titleLabel.font = model.titleFont
+            titleLabel.textColor = model.titleColor
+            stackView.addArrangedSubview(titleLabel)
+            if let size = model.titleSize {
+                titleLabel.snp.makeConstraints { (m) in
+                    m.size.equalTo(size)
+                }
+            }
+        }
+        
+        if let detail = model.detail {
+            detailLabel.text = detail
+            detailLabel.font = model.detailFont
+            detailLabel.textColor = model.detailColor
+            stackView.addArrangedSubview(detailLabel)
+            if let size = model.detailSize {
+                detailLabel.snp.makeConstraints { (m) in
+                    m.size.equalTo(size)
+                }
+            }
+        }
+        
+        if let buttonTitle = model.buttonTitle {
+            button.titleLabel?.font = model.buttonFont
+            button.setTitle(buttonTitle, for: .normal)
+            button.setTitleColor(model.buttonTitleColor, for: .normal)
+            button.backgroundColor = model.buttonColor
+            button.layer.cornerRadius = model.buttonRadius
+            button.clipsToBounds = true
+            stackView.addArrangedSubview(button)
+            if let size = model.buttonSize {
+                button.snp.makeConstraints { (m) in
+                    m.size.equalTo(size)
+                }
+            }
+        }
+        
+        if model.offsetY != 0 {
+            stackView.snp.updateConstraints { (m) in
+                m.centerY.equalToSuperview().offset(model.offsetY)
+            }
+        }
     }
     
     /// 创建占位图
     /// - Parameters:
-    ///   - config: 适配器回调
+    ///   - deploy: 适配器回调
     ///   - closure: 按钮点击回调 或 容器点击回调
     /// - Returns: 占位图
-    public static func empty(_ config : ConfigEmpty,
+    public static func empty(_ deploy : ConfigEmpty,
                              closure: buttonClosure? = nil) -> EmptyView{
         let model = EmptyConfig()
-        config(model)
+        deploy(model)
         
         let em = EmptyView()
         em.firstReloadHidden = model.firstReloadHidden
         em.bClosure = closure
         em.configEmptyView(model)
         return em
+    }
+    
+    /// 刷新空视图
+    /// - Parameter deploy: 适配器回调
+    public func reloadEmpty(_ deploy : ConfigEmpty){
+        
+        if config == nil {
+            config = EmptyConfig()
+        }
+        
+        deploy(config!)
+        configEmptyView(config!)
     }
     
      @objc fileprivate func touchUpInSideBtnAction() {
