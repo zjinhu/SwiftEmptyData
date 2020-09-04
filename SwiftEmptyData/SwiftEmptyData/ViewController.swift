@@ -22,20 +22,23 @@ class ViewController: JHViewController ,UITableViewDelegate,UITableViewDataSourc
         tableView.registerCell(JHTableViewCell.self)
 
  
-        tableView.emptyView = EmptyView.empty({ (config) in
-//            config.firstReloadHidden = true
-            config.emptyViewCanTouch = true
-            config.offsetY = -100
-            config.image = UIImage.init(named: "placeholder_tumblr")
-            config.title = "sdfasd"
-            config.detail = "asdasd"
-            config.buttonTitle = "asdasdasd"
-            config.buttonColor = .orange
-            config.buttonSize = .init(width: 200, height: 50)
-            config.eventTag = 2
-        }) { tag in
-            print("点击\(tag)")
-        }
+        tableView.emptyView = EmptyView.empty(firstReloadHidden: false,
+                                              canTouch: true,
+                                              offsetY: -100,
+                                              space: 15,
+                                              backColor: .orange,
+                                              deploy: { (config) in
+                                                config.image = UIImage.init(named: "placeholder_tumblr")
+                                                config.title = "sdfasd"
+                                                config.detail = "asdasd"
+                                                config.buttonTitle = "asdasdasd"
+                                                config.buttonColor = .orange
+                                                config.buttonSize = .init(width: 200, height: 50)
+                                                config.eventTag = 2
+                                              },
+                                              closure: { (tag) in
+                                                print("点击了tag--\(tag)")
+                                              })
         
         
         DispatchQueue.main.asyncAfter(deadline: .now()+2) {
@@ -46,16 +49,15 @@ class ViewController: JHViewController ,UITableViewDelegate,UITableViewDataSourc
         DispatchQueue.main.asyncAfter(deadline: .now()+5) {
             self.mainArray.removeAll()
             tableView.reloadData()
-            tableView.emptyView?.reloadEmpty({ (config) in
+            tableView.emptyView?.reloadEmpty(deploy: { (config) in
                 config.title = "123123123"
-                config.buttonTitle = nil
             })
         }
         
         DispatchQueue.main.asyncAfter(deadline: .now()+7) {
             self.mainArray.removeAll()
             tableView.reloadData()
-            tableView.emptyView?.reloadEmpty({ (config) in
+            tableView.emptyView?.reloadEmpty(deploy: { (config) in
                 config.title = "XXXXXXXXX"
                 config.buttonTitle = "XXXXXXXXX"
                 config.buttonColor = .red
