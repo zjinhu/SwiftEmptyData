@@ -74,6 +74,7 @@ open class EmptyView: UIView {
         view.axis = .vertical
         view.distribution = .fill
         view.alignment = .center
+        view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
     
@@ -155,6 +156,7 @@ open class EmptyView: UIView {
         
         stackView.arrangedSubviews.forEach { (view) in
             stackView.removeArrangedSubview(view)
+            view.removeFromSuperview()
         }
         
         stackView.spacing = model.space

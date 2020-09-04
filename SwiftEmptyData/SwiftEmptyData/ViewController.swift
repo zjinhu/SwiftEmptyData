@@ -47,6 +47,18 @@ class ViewController: JHViewController ,UITableViewDelegate,UITableViewDataSourc
             tableView.reloadData()
             tableView.emptyView?.reloadEmpty({ (config) in
                 config.title = "123123123"
+                config.buttonTitle = nil
+            })
+        }
+        
+        DispatchQueue.main.asyncAfter(deadline: .now()+7) {
+            self.mainArray.removeAll()
+            tableView.reloadData()
+            tableView.emptyView?.reloadEmpty({ (config) in
+                config.title = "XXXXXXXXX"
+                config.buttonTitle = "XXXXXXXXX"
+                config.buttonColor = .red
+                config.buttonSize = .init(width: 100, height: 50)
             })
         }
     }

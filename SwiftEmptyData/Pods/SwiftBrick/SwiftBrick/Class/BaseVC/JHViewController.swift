@@ -16,7 +16,7 @@ open class JHViewController: UIViewController {
     public lazy var leftBarButton : UIButton = {
         let leftBarButton = UIButton.init(type: .custom)
         leftBarButton.imageView?.contentMode = .center
-        leftBarButton.frame = CGRect.init(x: 0, y: 0, width: nav_bar_height, height: nav_bar_height)
+        leftBarButton.frame = CGRect.init(x: 0, y: 0, width: NavBarHeight(), height: NavBarHeight())
         leftBarButton.addTarget(self, action:#selector(goBack) , for: .touchUpInside)
         return leftBarButton
     }()
@@ -24,7 +24,7 @@ open class JHViewController: UIViewController {
     public lazy var rightBarButton : UIButton = {
         let rightBarButton = UIButton.init(type: .custom)
         rightBarButton.imageView?.contentMode = .center
-        rightBarButton.frame = CGRect.init(x: 0, y: 0, width: nav_bar_height, height: nav_bar_height)
+        rightBarButton.frame = CGRect.init(x: 0, y: 0, width: NavBarHeight(), height: NavBarHeight())
         return rightBarButton
     }()
     
@@ -110,8 +110,8 @@ open class JHViewController: UIViewController {
     ///   - normalColor: normalColor
     ///   - highlightColor: highlightColor
     public func addLeftBarButton(text: String,
-                                 normalColor: UIColor? = UIColor.BaseUI.textTitleColor,
-                                 highlightColor: UIColor? = UIColor.BaseUI.textDesColor){
+                                 normalColor: UIColor? = .textTitleColor,
+                                 highlightColor: UIColor? = .textDesColor){
         
         comfigLeftBarButton(text: text, normalColor: normalColor, highlightColor: highlightColor)
         let btnItem = UIBarButtonItem.init(customView: leftBarButton)
@@ -137,8 +137,8 @@ open class JHViewController: UIViewController {
     ///   - normalColor: normalColor
     ///   - highlightColor: highlightColor
     public func addRightBarButton(text: String,
-                                  normalColor: UIColor? = UIColor.BaseUI.textTitleColor,
-                                  highlightColor: UIColor? = UIColor.BaseUI.textDesColor){
+                                  normalColor: UIColor? = .textTitleColor,
+                                  highlightColor: UIColor? = .textDesColor){
 
         comfigRightBarButton(text: text, normalColor: normalColor, highlightColor: highlightColor)
         let btnItem = UIBarButtonItem.init(customView: rightBarButton)
@@ -155,9 +155,9 @@ open class JHViewController: UIViewController {
     ///   - normalImage: normalImage
     ///   - highLightImage: highLightImage
     public func comfigLeftBarButton(text: String? = nil,
-                                    font: UIFont? = font_16,
-                                    normalColor: UIColor? = UIColor.BaseUI.textTitleColor,
-                                    highlightColor: UIColor? = UIColor.BaseUI.textDesColor,
+                                    font: UIFont? = Font16,
+                                    normalColor: UIColor? = .textTitleColor,
+                                    highlightColor: UIColor? = .textDesColor,
                                     normalImage: UIImage? = nil,
                                     highLightImage: UIImage? = nil){
         
@@ -180,7 +180,7 @@ open class JHViewController: UIViewController {
     ///   - normalImage: normalImage
     ///   - highLightImage: highLightImage
     public func comfigRightBarButton(text: String? = nil,
-                                     font: UIFont? = font_16,
+                                     font: UIFont? = Font16,
                                      normalColor: UIColor? = nil,
                                      highlightColor: UIColor? = nil,
                                      normalImage: UIImage? = nil,
