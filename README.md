@@ -1,8 +1,4 @@
 # SwiftEmptyData
-[CI Status](https://travis-ci.org/jackiehu/SwiftEmptyData)
-[Version](https://cocoapods.org/pods/SwiftEmptyData)
-[License](https://cocoapods.org/pods/SwiftEmptyData)
-[Platform](https://cocoapods.org/pods/SwiftEmptyData)
 
 一个Swift语言封装的EmptyView显示库，可作用于UITableView、UICollectionView
 
@@ -39,7 +35,6 @@ tableView.emptyView?.reloadEmpty({ (config) in
 ## 适配器参数
 
 ```ruby
-public class EmptyConfig {
     //用于请求网络前Reload时暂时隐藏emptyView ,网络回来后会根据当前的tableView/collectionView的 DataSource来自动判断是否显示emptyView,不请求网络默认为false
     public var firstReloadHidden = false
     /// 内容视图的偏移量
@@ -87,8 +82,6 @@ public class EmptyConfig {
 如果不喜欢内置的布局可以直接重写或者自定义视图添加到EmptyView上
 
 ## 安装
-SwiftEmptyData is available through [CocoaPods](https://cocoapods.org). To install
-it, simply add the following line to your Podfile:
 
 ```ruby
 pod 'SwiftEmptyData'
