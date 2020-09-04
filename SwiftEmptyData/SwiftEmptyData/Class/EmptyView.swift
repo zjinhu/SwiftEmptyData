@@ -217,7 +217,7 @@ open class EmptyView: UIView {
     public static func empty(firstReloadHidden: Bool = false,
                              canTouch: Bool = false,
                              offsetY: CGFloat = 0,
-                             space: CGFloat = 0,
+                             space: CGFloat = 5,
                              backColor: UIColor = .clear,
                              deploy : ConfigEmpty,
                              closure: buttonClosure? = nil) -> EmptyView{
