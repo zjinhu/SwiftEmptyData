@@ -104,7 +104,7 @@ open class EmptyView: UIView {
     }()
     
     /// 按钮
-    lazy var button: UIButton = {
+    public lazy var button: UIButton = {
         let button = UIButton.init(type: .custom)
         button.contentHorizontalAlignment = .center
         button.contentVerticalAlignment = .center
