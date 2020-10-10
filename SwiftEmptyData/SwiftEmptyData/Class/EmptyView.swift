@@ -10,12 +10,12 @@ import UIKit
 import SnapKit
 
 public class EmptyConfig {
-    /// 图片
+    /// 图片(设置后占位图会显示图片)
     public var image : UIImage?
     /// 自定义图片size
     public var imageSize : CGSize?
     
-    /// 标题
+    /// 标题(设置后占位图会显示标题)
     public var title : String?
     /// 标题字体
     public var titleFont : UIFont = .systemFont(ofSize: 30)
@@ -24,7 +24,7 @@ public class EmptyConfig {
     /// 自定义size
     public var titleSize : CGSize?
     
-    /// 副标题
+    /// 副标题(设置后占位图会显示副标题)
     public var detail : String?
     /// 副标题字体
     public var detailFont : UIFont = .systemFont(ofSize: 14)
@@ -33,7 +33,7 @@ public class EmptyConfig {
     /// 自定义size
     public var detailSize : CGSize?
     
-    /// 按钮标题
+    /// 按钮标题(设置后占位图会显示按钮)
     public var buttonTitle : String?
     /// 按钮字体颜色
     public var buttonFont : UIFont = .systemFont(ofSize: 15)
@@ -48,6 +48,11 @@ public class EmptyConfig {
     
     /// 按钮处理事件tag
     public var eventTag : Int = 0
+    
+    /// 自定义视图 (设置后占位图会显示自定义视图,如果以上按钮标题图片都不设置只设置自定义视图则只展示自定义视图,内部点击事件自行处理)
+    public var customView : UIView?
+    /// 自定义视图宽高
+    public var customViewSize : CGSize?
 }
 
 
@@ -199,6 +204,13 @@ open class EmptyView: UIView {
                 button.snp.updateConstraints { (m) in
                     m.size.equalTo(size)
                 }
+            }
+        }
+        
+        if let view = model.customView, let size = model.customViewSize{
+            stackView.addArrangedSubview(view)
+            view.snp.updateConstraints { (m) in
+                m.size.equalTo(size)
             }
         }
         

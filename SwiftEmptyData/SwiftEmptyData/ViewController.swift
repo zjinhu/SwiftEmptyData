@@ -12,6 +12,12 @@ class ViewController: JHViewController ,UITableViewDelegate,UITableViewDataSourc
     
     var mainArray = [String]()
 
+    lazy var customView: UIView = {
+        let v = UIView()
+        v.backgroundColor = .white
+        return v
+    }()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -35,6 +41,8 @@ class ViewController: JHViewController ,UITableViewDelegate,UITableViewDataSourc
                                                 config.buttonColor = .orange
                                                 config.buttonSize = .init(width: 200, height: 50)
                                                 config.eventTag = 2
+                                                config.customView = self.customView
+                                                config.customViewSize = .init(width: 100, height: 80)
                                               },
                                               closure: { (tag) in
                                                 print("点击了tag--\(tag)")
