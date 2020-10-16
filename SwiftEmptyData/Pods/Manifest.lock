@@ -1,27 +1,29 @@
 PODS:
   - SnapKit (5.0.1)
-  - SwiftBrick (1.3.0):
+  - SwiftBrick (1.5.2):
     - SnapKit
-    - SwiftBrick/BaseCell (= 1.3.0)
-    - SwiftBrick/BaseVC (= 1.3.0)
-    - SwiftBrick/Extensions (= 1.3.0)
-    - SwiftBrick/Util (= 1.3.0)
-    - SwiftBrick/ViewFactory (= 1.3.0)
-  - SwiftBrick/BaseCell (1.3.0):
+    - SwiftBrick/BaseCell (= 1.5.2)
+    - SwiftBrick/BaseVC (= 1.5.2)
+    - SwiftBrick/Extensions (= 1.5.2)
+    - SwiftBrick/Util (= 1.5.2)
+    - SwiftBrick/ViewFactory (= 1.5.2)
+  - SwiftBrick/BaseCell (1.5.2):
     - SnapKit
     - SwiftBrick/Extensions
-  - SwiftBrick/BaseVC (1.3.0):
+  - SwiftBrick/BaseVC (1.5.2):
     - SnapKit
     - SwiftBrick/BaseCell
     - SwiftBrick/Extensions
     - SwiftBrick/Util
-  - SwiftBrick/Extensions (1.3.0):
+  - SwiftBrick/Extensions (1.5.2):
     - SnapKit
     - SwiftBrick/Util
-  - SwiftBrick/Util (1.3.0):
+  - SwiftBrick/Util (1.5.2):
     - SnapKit
-  - SwiftBrick/ViewFactory (1.3.0):
+  - SwiftBrick/ViewFactory (1.5.2):
     - SnapKit
+    - SwiftBrick/Extensions
+    - SwiftBrick/Util
 
 DEPENDENCIES:
   - SwiftBrick
@@ -33,8 +35,8 @@ SPEC REPOS:
 
 SPEC CHECKSUMS:
   SnapKit: 97b92857e3df3a0c71833cce143274bf6ef8e5eb
-  SwiftBrick: 8392dd3b06346278977936c2f9001c628728b55e
+  SwiftBrick: 8c12d7f0307b841956b62e314ee04b643d7afb2b
 
 PODFILE CHECKSUM: a8d554bc62961e8296af08dd7fd87eda512035fb
 
-COCOAPODS: 1.10.0.beta.2
+COCOAPODS: 1.10.0.rc.1
