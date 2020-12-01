@@ -21,8 +21,8 @@ public class EmptyConfig {
     public var titleFont : UIFont = .systemFont(ofSize: 30)
     /// 标题颜色
     public var titleColor : UIColor = .black
-    /// 自定义size
-    public var titleSize : CGSize?
+    /// 自定义距离图片间距
+    public var titleTopSpace : CGFloat?
     
     /// 副标题(设置后占位图会显示副标题)
     public var detail : String?
@@ -30,8 +30,8 @@ public class EmptyConfig {
     public var detailFont : UIFont = .systemFont(ofSize: 14)
     /// 副标题颜色
     public var detailColor : UIColor = .lightGray
-    /// 自定义size
-    public var detailSize : CGSize?
+    /// 自定义间距
+    public var detailTopSpace : CGFloat?
     
     /// 按钮标题(设置后占位图会显示按钮)
     public var buttonTitle : String?
@@ -45,6 +45,8 @@ public class EmptyConfig {
     public var buttonRadius : CGFloat = 5
     /// 按钮背景色
     public var buttonColor : UIColor = .clear
+    /// 自定义间距
+    public var buttonTopSpace : CGFloat?
     
     /// 按钮处理事件tag
     public var eventTag : Int = 0
@@ -53,8 +55,10 @@ public class EmptyConfig {
     public var customView : UIView?
     /// 自定义视图宽高
     public var customViewSize : CGSize?
+    /// 自定义间距
+    public var customViewTopSpace : CGFloat?
+    
 }
-
 
 /// 获取信号栏高度
 /// - Returns: 高度
@@ -169,30 +173,51 @@ open class EmptyView: UIView {
         }
         
         if let title = model.title {
+            
+            if let space = model.titleTopSpace {
+                let spaceView = UIView()
+                stackView.addArrangedSubview(spaceView)
+                spaceView.snp.makeConstraints { (m) in
+                    m.height.equalTo(space)
+                    m.width.equalTo(1)
+                }
+            }
+            
             titleLabel.text = title
             titleLabel.font = model.titleFont
             titleLabel.textColor = model.titleColor
             stackView.addArrangedSubview(titleLabel)
-            if let size = model.titleSize {
-                titleLabel.snp.updateConstraints { (m) in
-                    m.size.equalTo(size)
-                }
-            }
+
         }
         
         if let detail = model.detail {
+            
+            if let space = model.detailTopSpace {
+                let spaceView = UIView()
+                stackView.addArrangedSubview(spaceView)
+                spaceView.snp.makeConstraints { (m) in
+                    m.height.equalTo(space)
+                    m.width.equalTo(1)
+                }
+            }
+            
             detailLabel.text = detail
             detailLabel.font = model.detailFont
             detailLabel.textColor = model.detailColor
             stackView.addArrangedSubview(detailLabel)
-            if let size = model.detailSize {
-                detailLabel.snp.updateConstraints { (m) in
-                    m.size.equalTo(size)
-                }
-            }
         }
         
         if let buttonTitle = model.buttonTitle {
+            
+            if let space = model.buttonTopSpace {
+                let spaceView = UIView()
+                stackView.addArrangedSubview(spaceView)
+                spaceView.snp.makeConstraints { (m) in
+                    m.height.equalTo(space)
+                    m.width.equalTo(1)
+                }
+            }
+            
             button.titleLabel?.font = model.buttonFont
             button.setTitle(buttonTitle, for: .normal)
             button.setTitleColor(model.buttonTitleColor, for: .normal)
@@ -208,6 +233,16 @@ open class EmptyView: UIView {
         }
         
         if let view = model.customView, let size = model.customViewSize{
+            
+            if let space = model.customViewTopSpace {
+                let spaceView = UIView()
+                stackView.addArrangedSubview(spaceView)
+                spaceView.snp.makeConstraints { (m) in
+                    m.height.equalTo(space)
+                    m.width.equalTo(1)
+                }
+            }
+            
             stackView.addArrangedSubview(view)
             view.snp.updateConstraints { (m) in
                 m.size.equalTo(size)

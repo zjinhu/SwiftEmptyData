@@ -31,14 +31,17 @@ class ViewController: JHViewController ,UITableViewDelegate,UITableViewDataSourc
         tableView.emptyView = EmptyView.empty(firstReloadHidden: false,
                                               canTouch: true,
                                               offsetY: -100,
-                                              space: 15,
+                                              space: 0,
                                               backColor: .orange,
                                               deploy: { (config) in
                                                 config.image = UIImage.init(named: "placeholder_tumblr")
+                                                config.titleTopSpace = 50
                                                 config.title = "sdfasd"
+                                                config.detailTopSpace = 40
                                                 config.detail = "asdasd"
+                                                config.buttonTopSpace = 60
                                                 config.buttonTitle = "asdasdasd"
-                                                config.buttonColor = .orange
+                                                config.buttonColor = .red
                                                 config.buttonSize = .init(width: 200, height: 50)
                                                 config.eventTag = 2
                                                 config.customView = self.customView
@@ -49,12 +52,12 @@ class ViewController: JHViewController ,UITableViewDelegate,UITableViewDataSourc
                                               })
         
         
-        DispatchQueue.main.asyncAfter(deadline: .now()+2) {
+        DispatchQueue.main.asyncAfter(deadline: .now()+112) {
             self.mainArray = ["","","","","",""]
             tableView.reloadData()
         }
         
-        DispatchQueue.main.asyncAfter(deadline: .now()+5) {
+        DispatchQueue.main.asyncAfter(deadline: .now()+115) {
             self.mainArray.removeAll()
             tableView.reloadData()
             tableView.emptyView?.reloadEmpty(deploy: { (config) in
@@ -62,7 +65,7 @@ class ViewController: JHViewController ,UITableViewDelegate,UITableViewDataSourc
             })
         }
         
-        DispatchQueue.main.asyncAfter(deadline: .now()+7) {
+        DispatchQueue.main.asyncAfter(deadline: .now()+117) {
             self.mainArray.removeAll()
             tableView.reloadData()
             tableView.emptyView?.reloadEmpty(deploy: { (config) in
