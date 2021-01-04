@@ -147,6 +147,8 @@ open class EmptyView: UIView {
         stackView.snp.makeConstraints { (m) in
             m.centerX.equalToSuperview()
             m.centerY.equalToSuperview()
+            m.width.lessThanOrEqualTo(UIScreen.main.bounds.width)
+            m.height.lessThanOrEqualTo(UIScreen.main.bounds.height)
         }
     }
     
