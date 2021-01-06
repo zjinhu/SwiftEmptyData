@@ -6,7 +6,6 @@
 //  Copyright © 2020 iOS. All rights reserved.
 //
 import UIKit
-
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
