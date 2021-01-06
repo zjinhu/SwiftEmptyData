@@ -28,14 +28,17 @@ lane :release_pod do |options|
   push_git_tags
   # 验证 spec 文件
   pod_lib_lint(verbose: true, allow_warnings: true)
+  # pod lib lint --verbose --allow-warnings
   # # pod trunk push 'spec_path'
   # pod_push(path: spec_path, allow_warnings: true,verbose: true)
     # 检查是否传了 repo 参数
   if target_repo
     # pod repo push 'target_repo' 'spec_path'
-    pod_push(path: spec_path, repo: target_repo, allow_warnings: true, verbose: true)
+     pod_push(path: spec_path, repo: target_repo, allow_warnings: true, verbose: true)
   else
+    # pod repo push spec_path target_repo --verbose --allow-warnings
     # pod trunk push 'spec_path'
-    pod_push(path: spec_path, allow_warnings: true, verbose: true)
+     pod_push(path: spec_path, allow_warnings: true, verbose: true)
+    # pod repo push spec_path --verbose --allow-warnings
   end
 end
