@@ -1,10 +1,14 @@
 # SwiftEmptyData
 
-一个Swift语言封装的EmptyView显示库，可作用于UITableView、UICollectionView
+一个Swift语言封装的EmptyView显示库，可作用于UITableView、UICollectionView。通过适配器的方式可以很方便的添加空占位图，以及刷新空占位图样式。
+
+![](1.gif)
+
+![](1.png)
 
 ## 用法
 
-```ruby
+```swift
  ///配置展位图  
 			tableView.emptyView = EmptyView.empty(firstReloadHidden: false,
                                               canTouch: true,
@@ -39,7 +43,7 @@
 
 ## API
 
-```ruby
+```swift
   /// 创建占位图
     /// - Parameters:
     ///   - deploy: 适配器回调
@@ -63,35 +67,33 @@
     public func reloadEmpty(deploy : ConfigEmpty)
 ```
 
-## 
-
 ## 适配器参数
 
-```ruby
-    /// 图片
+```swift
+    /// 图片(设置后占位图会显示图片)
     public var image : UIImage?
     /// 自定义图片size
     public var imageSize : CGSize?
     
-    /// 标题
+    /// 标题(设置后占位图会显示标题)
     public var title : String?
     /// 标题字体
     public var titleFont : UIFont = .systemFont(ofSize: 30)
     /// 标题颜色
     public var titleColor : UIColor = .black
-    /// 自定义size
-    public var titleSize : CGSize?
+    /// 自定义距离图片间距
+    public var titleTopSpace : CGFloat?
     
-    /// 副标题
+    /// 副标题(设置后占位图会显示副标题)
     public var detail : String?
     /// 副标题字体
     public var detailFont : UIFont = .systemFont(ofSize: 14)
     /// 副标题颜色
     public var detailColor : UIColor = .lightGray
-    /// 自定义size
-    public var detailSize : CGSize?
+    /// 自定义间距
+    public var detailTopSpace : CGFloat?
     
-    /// 按钮标题
+    /// 按钮标题(设置后占位图会显示按钮)
     public var buttonTitle : String?
     /// 按钮字体颜色
     public var buttonFont : UIFont = .systemFont(ofSize: 15)
@@ -103,21 +105,32 @@
     public var buttonRadius : CGFloat = 5
     /// 按钮背景色
     public var buttonColor : UIColor = .clear
+    /// 自定义间距
+    public var buttonTopSpace : CGFloat?
     
     /// 按钮处理事件tag
     public var eventTag : Int = 0
+    
+    /// 自定义视图 (设置后占位图会显示自定义视图,如果以上按钮标题图片都不设置只设置自定义视图则只展示自定义视图,内部点击事件自行处理)
+    public var customView : UIView?
+    /// 自定义视图宽高
+    public var customViewSize : CGSize?
+    /// 自定义间距
+    public var customViewTopSpace : CGFloat?
 ```
 
 如果不喜欢内置的布局可以直接重写或者自定义视图添加到EmptyView上
 
 ## 安装
 
+#### cocoapods导入
+
 ```ruby
 pod 'SwiftEmptyData'
 ```
 
-## Author
-jackiehu, jackie
+#### SPM导入
 
-## License
-SwiftEmptyData is available under the MIT license. See the LICENSE file for more info.
+`https://github.com/jackiehu/SwiftEmptyData`
+
+#### 手动导入

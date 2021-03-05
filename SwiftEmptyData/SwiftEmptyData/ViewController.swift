@@ -14,7 +14,7 @@ class ViewController: JHViewController ,UITableViewDelegate,UITableViewDataSourc
 
     lazy var customView: UIView = {
         let v = UIView()
-        v.backgroundColor = .white
+        v.backgroundColor = .orange
         return v
     }()
     
@@ -32,18 +32,19 @@ class ViewController: JHViewController ,UITableViewDelegate,UITableViewDataSourc
                                               canTouch: true,
                                               offsetY: -100,
                                               space: 0,
-                                              backColor: .orange,
+                                              backColor: .white,
                                               deploy: { (config) in
                                                 config.image = UIImage.init(named: "placeholder_tumblr")
-                                                config.titleTopSpace = 50
+                                                config.titleTopSpace = 15
                                                 config.title = "sdfasd"
-                                                config.detailTopSpace = 40
+                                                config.detailTopSpace = 10
                                                 config.detail = "asdasd"
-                                                config.buttonTopSpace = 60
+                                                config.buttonTopSpace = 20
                                                 config.buttonTitle = "asdasdasd"
                                                 config.buttonColor = .red
                                                 config.buttonSize = .init(width: 200, height: 50)
                                                 config.eventTag = 2
+                                                config.customViewTopSpace = 30
                                                 config.customView = self.customView
                                                 config.customViewSize = .init(width: 100, height: 80)
                                               },
@@ -52,12 +53,12 @@ class ViewController: JHViewController ,UITableViewDelegate,UITableViewDataSourc
                                               })
         
         
-        DispatchQueue.main.asyncAfter(deadline: .now()+112) {
+        DispatchQueue.main.asyncAfter(deadline: .now()+5) {
             self.mainArray = ["","","","","",""]
             tableView.reloadData()
         }
         
-        DispatchQueue.main.asyncAfter(deadline: .now()+115) {
+        DispatchQueue.main.asyncAfter(deadline: .now()+12) {
             self.mainArray.removeAll()
             tableView.reloadData()
             tableView.emptyView?.reloadEmpty(deploy: { (config) in
@@ -65,7 +66,7 @@ class ViewController: JHViewController ,UITableViewDelegate,UITableViewDataSourc
             })
         }
         
-        DispatchQueue.main.asyncAfter(deadline: .now()+117) {
+        DispatchQueue.main.asyncAfter(deadline: .now()+15) {
             self.mainArray.removeAll()
             tableView.reloadData()
             tableView.emptyView?.reloadEmpty(deploy: { (config) in
