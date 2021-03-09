@@ -2,9 +2,9 @@
 
 一个Swift语言封装的EmptyView显示库，可作用于UITableView、UICollectionView。通过适配器的方式可以很方便的添加空占位图，以及刷新空占位图样式。
 
-![](1.gif)
+![](Image/1.gif)
 
-![](1.png)
+![](Image/1.png)
 
 ## 用法
 
