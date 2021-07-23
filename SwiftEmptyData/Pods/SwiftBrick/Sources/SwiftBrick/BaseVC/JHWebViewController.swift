@@ -9,7 +9,7 @@
 import UIKit
 import WebKit
 import SnapKit
-
+// MARK: ===================================VC基类:UIWebViewController=========================================
 open class JHWebViewController: JHViewController ,WKUIDelegate,WKNavigationDelegate,WKScriptMessageHandler,UIScrollViewDelegate{
 
     lazy var backButton: UIButton = {
@@ -244,10 +244,12 @@ open class JHWebViewController: JHViewController ,WKUIDelegate,WKNavigationDeleg
         webView.evaluateJavaScript("navigator.userAgent") { (result, error) in
             debugPrint("\(String(describing: result))")
         }
-        if SystemVersion >= 12.0, SystemVersion < 12.2, first{
+
+        if Later_iOS12(), Version() < Version(12, 2, 0), first{
             webView.reload()
             first = false
         }
+        
         if webView.canGoBack {
             closeButton.isHidden = false
         }

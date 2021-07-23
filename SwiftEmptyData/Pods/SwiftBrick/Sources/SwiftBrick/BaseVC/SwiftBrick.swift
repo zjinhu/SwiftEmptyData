@@ -8,7 +8,7 @@
 
 import Foundation
 import UIKit
-
+// MARK: ===================================VC基类:协议=========================================
 public struct SwiftBrick{
     ///如果使用导航栏的功能可以全局设置下
     ///统一设置返回按钮图片(默认)
@@ -39,18 +39,24 @@ public protocol JHBaseVC{
                           touchUp: ButtonClosure?)
     
     func addLeftBarButton(text: String,
+                          font: UIFont?,
                           normalColor: UIColor?,
                           highlightColor: UIColor?,
                           touchUp: ButtonClosure?)
     
     func addRightBarButton(normalImage: UIImage?,
                            highLightImage: UIImage?,
+                           selectedImage: UIImage?,
+                           disableImage: UIImage?,
                            fixSpace: CGFloat,
                            touchUp: ButtonClosure?)
     
     func addRightBarButton(text: String,
+                           font: UIFont?,
                            normalColor: UIColor?,
                            highlightColor: UIColor?,
+                           selectedColor: UIColor?,
+                           disableColor: UIColor?,
                            fixSpace: CGFloat,
                            touchUp: ButtonClosure?)
     
@@ -65,8 +71,12 @@ public protocol JHBaseVC{
                               font: UIFont?,
                               normalColor: UIColor?,
                               highlightColor: UIColor?,
+                              selectedColor: UIColor?,
+                              disableColor: UIColor?,
                               normalImage: UIImage?,
-                              highLightImage: UIImage?)
+                              highLightImage: UIImage?,
+                              selectedImage: UIImage?,
+                              disableImage: UIImage?)
     
 }
 
@@ -94,10 +104,12 @@ public extension JHBaseVC where Self: UIViewController {
     }
     
     func addLeftBarButton(text: String,
+                          font: UIFont?,
                           normalColor: UIColor? = nil,
                           highlightColor: UIColor? = nil,
                           touchUp: ButtonClosure?){
         configLeftBarButton(text: text,
+                            font: font,
                             normalColor: normalColor,
                             highlightColor: highlightColor)
         let btnItem = UIBarButtonItem(customView: leftBarButton)
@@ -111,10 +123,15 @@ public extension JHBaseVC where Self: UIViewController {
     
     func addRightBarButton(normalImage: UIImage? = nil,
                            highLightImage: UIImage? = nil,
+                           selectedImage: UIImage? = nil,
+                           disableImage: UIImage? = nil,
                            fixSpace: CGFloat = 0,
                            touchUp: ButtonClosure?){
+        
         configRightBarButton(normalImage: normalImage,
-                             highLightImage: highLightImage)
+                             highLightImage: highLightImage,
+                             selectedImage: selectedImage,
+                             disableImage: disableImage)
         let btnItem = UIBarButtonItem(customView: rightBarButton)
         
         fixSpaceRightBarButton(btnItem: btnItem, fixSpace: fixSpace)
@@ -125,13 +142,19 @@ public extension JHBaseVC where Self: UIViewController {
     }
     
     func addRightBarButton(text: String,
+                           font: UIFont? = nil,
                            normalColor: UIColor? = nil,
                            highlightColor: UIColor? = nil,
+                           selectedColor: UIColor? = nil,
+                           disableColor: UIColor? = nil,
                            fixSpace: CGFloat = 0,
                            touchUp: ButtonClosure?){
         configRightBarButton(text: text,
+                             font: font,
                              normalColor: normalColor,
-                             highlightColor: highlightColor)
+                             highlightColor: highlightColor,
+                             selectedColor: selectedColor,
+                             disableColor: disableColor)
         let btnItem = UIBarButtonItem(customView: rightBarButton)
         
         fixSpaceRightBarButton(btnItem: btnItem, fixSpace: fixSpace)
@@ -147,7 +170,7 @@ public extension JHBaseVC where Self: UIViewController {
                              highlightColor: UIColor? = nil,
                              normalImage: UIImage? = nil,
                              highLightImage: UIImage? = nil){
-        leftBarButton.titleLabel?.font = font
+        leftBarButton.titleLabel?.font = font ?? Font14
         leftBarButton.setTitle(text, for: .normal)
         leftBarButton.setTitle(text, for: .highlighted)
         leftBarButton.setTitleColor(normalColor, for: .normal)
@@ -161,16 +184,28 @@ public extension JHBaseVC where Self: UIViewController {
                               font: UIFont? = nil,
                               normalColor: UIColor? = nil,
                               highlightColor: UIColor? = nil,
+                              selectedColor: UIColor? = nil,
+                              disableColor: UIColor? = nil,
                               normalImage: UIImage? = nil,
-                              highLightImage: UIImage? = nil){
-        rightBarButton.titleLabel?.font = font
+                              highLightImage: UIImage? = nil,
+                              selectedImage: UIImage? = nil,
+                              disableImage: UIImage? = nil){
+        
+        rightBarButton.titleLabel?.font = font ?? Font14
         rightBarButton.setTitle(text, for: .normal)
         rightBarButton.setTitle(text, for: .highlighted)
+        rightBarButton.setTitle(text, for: .selected)
+        rightBarButton.setTitle(text, for: .disabled)
+        
         rightBarButton.setTitleColor(normalColor, for: .normal)
         rightBarButton.setTitleColor(highlightColor, for: .highlighted)
+        rightBarButton.setTitleColor(selectedColor, for: .selected)
+        rightBarButton.setTitleColor(disableColor, for: .disabled)
         
         rightBarButton.setImage(normalImage, for: .normal)
         rightBarButton.setImage(highLightImage, for: .highlighted)
+        rightBarButton.setImage(selectedImage, for: .selected)
+        rightBarButton.setImage(disableImage, for: .disabled)
     }
     
     func fixSpaceLeftBarButton(btnItem: UIBarButtonItem){
