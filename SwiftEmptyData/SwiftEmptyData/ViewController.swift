@@ -27,8 +27,7 @@ class ViewController: JHViewController ,UITableViewDelegate,UITableViewDataSourc
         
         tableView.registerCell(JHTableViewCell.self)
 
- 
-        tableView.emptyView = EmptyView.empty(firstReloadHidden: false,
+        tableView.em.emptyView = EmptyView.empty(firstReloadHidden: false,
                                               canTouch: true,
                                               offsetY: -100,
                                               space: 0,
@@ -61,7 +60,7 @@ class ViewController: JHViewController ,UITableViewDelegate,UITableViewDataSourc
         DispatchQueue.main.asyncAfter(deadline: .now()+12) {
             self.mainArray.removeAll()
             tableView.reloadData()
-            tableView.emptyView?.reloadEmpty(deploy: { (config) in
+            tableView.em.emptyView?.reloadEmpty(deploy: { (config) in
                 config.title = "123123123"
             })
         }
@@ -69,7 +68,7 @@ class ViewController: JHViewController ,UITableViewDelegate,UITableViewDataSourc
         DispatchQueue.main.asyncAfter(deadline: .now()+15) {
             self.mainArray.removeAll()
             tableView.reloadData()
-            tableView.emptyView?.reloadEmpty(deploy: { (config) in
+            tableView.em.emptyView?.reloadEmpty(deploy: { (config) in
                 config.title = "XXXXXXXXX"
                 config.buttonTitle = "XXXXXXXXX"
                 config.buttonColor = .red

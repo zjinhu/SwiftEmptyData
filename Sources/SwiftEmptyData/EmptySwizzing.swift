@@ -7,33 +7,53 @@
 //
 
 import UIKit
-
+import Foundation
 private var kEmptyView = "emptyDataView"
 
-public extension UIScrollView {
+public final class Empty<Base> {
+    public let base: Base
+    public init(_ base: Base) {
+        self.base = base
+    }
+}
+
+public protocol EmptyCompatible {
+    associatedtype CompatibleType
+    var em: CompatibleType { get }
+}
+
+public extension EmptyCompatible {
+    var em: Empty<Self> {
+        get { return Empty(self) }
+    }
+}
+
+extension UIScrollView: EmptyCompatible {}
+
+public extension Empty where Base: UIScrollView {
+
     /// 空白页视图
     var emptyView: EmptyView? {
         get {
-            return objc_getAssociatedObject(self, &kEmptyView) as? EmptyView
+            return objc_getAssociatedObject(base, &kEmptyView) as? EmptyView
         }
         set {
             if newValue != nil {
                 /// 兼容子类化情况
-                if self.isKind(of: UITableView.self) {
+                if base.isKind(of: UITableView.self) {
                     EmptySwizzing.swizzingTableView
-                } else if self.isKind(of: UICollectionView.self) {
+                } else if base.isKind(of: UICollectionView.self) {
                     EmptySwizzing.swizzingCollectionView
                 }
                 
-                objc_setAssociatedObject(self, &kEmptyView, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
+                objc_setAssociatedObject(base, &kEmptyView, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
                 
-                self.subviews.forEach { (vi) in
+                base.subviews.forEach { (vi) in
                     if vi.isKind(of: EmptyView.self){
                         vi.removeFromSuperview()
                     }
                 }
-                addSubview(newValue!)
-
+                base.addSubview(newValue!)
                 newValue?.isHidden = true
             }
         }
@@ -68,7 +88,7 @@ public extension UIScrollView {
             return
         }
         em.isHidden = false
-        bringSubviewToFront(em)
+        base.bringSubviewToFront(em)
     }
     
     /// 手动调用隐藏emptyView
@@ -84,7 +104,7 @@ public extension UIScrollView {
         var items = 0
         
         // UITableView support
-        if let tableView = self as? UITableView {
+        if let tableView = base as? UITableView {
             var sections = 1
             
             if let dataSource = tableView.dataSource {
@@ -97,7 +117,7 @@ public extension UIScrollView {
                     }
                 }
             }
-        } else if let collectionView = self as? UICollectionView {
+        } else if let collectionView = base as? UICollectionView {
             var sections = 1
             
             if let dataSource = collectionView.dataSource {
@@ -214,41 +234,41 @@ fileprivate extension UITableView {
     
     @objc func empty_reloadData() {
         self.empty_reloadData()
-        setModeEmptyView()
-        if let empty = emptyView {
+        em.setModeEmptyView()
+        if let empty = em.emptyView {
             empty.firstReloadHidden = false
         }
     }
     
     @objc func empty_insertSections(_ sections: IndexSet, with animation: UITableView.RowAnimation) {
         self.empty_insertSections(sections, with: animation)
-        setModeEmptyView()
+        em.setModeEmptyView()
     }
     
     @objc func empty_deleteSections(_ sections: IndexSet, with animation: UITableView.RowAnimation) {
         self.empty_deleteSections(sections, with: animation)
-        setModeEmptyView()
+        em.setModeEmptyView()
     }
     
     @objc func empty_reloadSections(_ sections: IndexSet, with animation: UITableView.RowAnimation) {
         self.empty_reloadSections(sections, with: animation)
-        setModeEmptyView()
+        em.setModeEmptyView()
     }
     
     
     @objc func empty_insertRows(at indexPaths: [IndexPath], with animation: UITableView.RowAnimation) {
         self.empty_insertRows(at: indexPaths, with: animation)
-        setModeEmptyView()
+        em.setModeEmptyView()
     }
     
     @objc func empty_deleteRows(at indexPaths: [IndexPath], with animation: UITableView.RowAnimation) {
         self.empty_deleteRows(at: indexPaths, with: animation)
-        setModeEmptyView()
+        em.setModeEmptyView()
     }
     
     @objc func empty_reloadRows(at indexPaths: [IndexPath], with animation: UITableView.RowAnimation) {
         self.empty_reloadRows(at: indexPaths, with: animation)
-        setModeEmptyView()
+        em.setModeEmptyView()
     }
     
 }
@@ -257,39 +277,39 @@ fileprivate extension UICollectionView {
 
     @objc func empty_reloadData() {
         self.empty_reloadData()
-        setModeEmptyView()
-        if let empty = emptyView {
+        em.setModeEmptyView()
+        if let empty = em.emptyView {
             empty.firstReloadHidden = false
         }
     }
     
     @objc func empty_insertSections(_ sections: IndexSet) {
         self.empty_insertSections(sections)
-        setModeEmptyView()
+        em.setModeEmptyView()
     }
     
     @objc func empty_deleteSections(_ sections: IndexSet) {
         self.empty_deleteSections(sections)
-        setModeEmptyView()
+        em.setModeEmptyView()
     }
     
     @objc func empty_reloadSections(_ sections: IndexSet) {
         self.empty_reloadSections(sections)
-        setModeEmptyView()
+        em.setModeEmptyView()
     }
     
     @objc func empty_insertItems(at indexPaths: [IndexPath]) {
         self.empty_insertItems(at: indexPaths)
-        setModeEmptyView()
+        em.setModeEmptyView()
     }
     
     @objc func empty_deleteItems(at indexPaths: [IndexPath]) {
         self.empty_deleteItems(at: indexPaths)
-        setModeEmptyView()
+        em.setModeEmptyView()
     }
     
     @objc func empty_reloadItems(at indexPaths: [IndexPath]) {
         self.empty_reloadItems(at: indexPaths)
-        setModeEmptyView()
+        em.setModeEmptyView()
     }
 }
