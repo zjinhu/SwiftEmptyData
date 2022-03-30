@@ -41,7 +41,7 @@ SwiftEmptyData 也支持手动集成，只需把Sources文件夹中的SwiftEmpty
 
 ```swift
  ///配置展位图  
-			tableView.emptyView = EmptyView.empty(firstReloadHidden: false,
+			tableView.em.emptyView = EmptyView.empty(firstReloadHidden: false,
                                               canTouch: true,
                                               offsetY: -100,
                                               space: 15,
@@ -60,7 +60,7 @@ SwiftEmptyData 也支持手动集成，只需把Sources文件夹中的SwiftEmpty
                                               })
 
 ///刷新占位图
-      tableView.emptyView?.reloadEmpty(deploy: { (config) in
+      tableView.em.emptyView?.reloadEmpty(deploy: { (config) in
                 config.title = "XXXXXXXXX"
                 config.buttonTitle = "XXXXXXXXX"
                 config.buttonColor = .red
