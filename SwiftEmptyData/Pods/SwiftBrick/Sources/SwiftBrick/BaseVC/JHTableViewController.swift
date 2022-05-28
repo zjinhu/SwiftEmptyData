@@ -54,7 +54,12 @@ open class JHTableViewController: JHViewController ,UITableViewDelegate,UITableV
             tableView = UITableView(frame: .zero, style: .plain)
             
         }
-
+        
+        if #available(iOS 15.0, *) {
+            tableView?.sectionHeaderTopPadding = 0
+            tableView?.isPrefetchingEnabled = false
+        }
+        
         tableView?.backgroundColor = .clear
         tableView?.delegate = self
         tableView?.dataSource = self
@@ -77,10 +82,10 @@ open class JHTableViewController: JHViewController ,UITableViewDelegate,UITableV
         view.addSubview(tableView!)
 
         tableView?.snp.makeConstraints{ (make) in
-            make.top.equalTo(view.safeAreaInsets.top)
-            make.left.equalTo(view.safeAreaInsets.left)
-            make.right.equalTo(view.safeAreaInsets.right)
-            make.bottom.equalTo(view.safeAreaInsets.bottom)
+            make.top.equalTo(view.snp.top)
+            make.left.equalTo(view.snp.left)
+            make.right.equalTo(view.snp.right)
+            make.bottom.equalTo(view.snp.bottom)
         }
         
         tableView?.contentInsetAdjustmentBehavior = .automatic
